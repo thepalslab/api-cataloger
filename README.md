@@ -1,21 +1,3 @@
-Below is your **single, clean, professional README** that combines:
-
-### ✔ What your project is
-
-### ✔ Why it’s needed (compared to Swagger/OpenAPI)
-
-### ✔ What it achieves
-
-### ✔ How it works
-
-### ✔ Where deeper documentation lives (multi-page links)
-
-### ✔ Ready for GitHub or leadership presentation
-
-This is **human-friendly**, **business-friendly**, and **engineering-friendly**.
-
----
-
 # 📘 **API Cataloger — Unified Internal API Discovery System**
 
 API Cataloger is a system that automatically discovers APIs across your organization, parses both OpenAPI files *and* Java controller annotations, enriches them with metadata, and presents everything in a centralized, searchable catalog.
