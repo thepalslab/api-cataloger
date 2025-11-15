@@ -1,4 +1,5 @@
 """Tests for OpenAPI parser."""
+
 import pytest
 from pathlib import Path
 from api_cataloger.parsers.openapi_parser import OpenAPIParser
@@ -57,7 +58,7 @@ def test_can_parse_non_openapi(openapi_parser, tmp_path):
 def test_parse_openapi_file(openapi_parser, sample_openapi_file):
     """Test parsing a complete OpenAPI file."""
     entry = openapi_parser.parse(sample_openapi_file)
-    
+
     assert entry is not None
     assert entry.metadata.title == "Test API"
     assert entry.metadata.version == "1.0.0"
@@ -68,7 +69,7 @@ def test_parse_openapi_file(openapi_parser, sample_openapi_file):
 def test_parse_endpoints(openapi_parser, sample_openapi_file):
     """Test endpoint extraction."""
     entry = openapi_parser.parse(sample_openapi_file)
-    
+
     # Check first endpoint
     get_endpoint = next(ep for ep in entry.endpoints if ep.method == "GET")
     assert get_endpoint.path == "/test"
@@ -81,6 +82,6 @@ def test_parse_endpoints(openapi_parser, sample_openapi_file):
 def test_deprecated_endpoint(openapi_parser, sample_openapi_file):
     """Test that deprecated endpoints are marked correctly."""
     entry = openapi_parser.parse(sample_openapi_file)
-    
+
     deprecated_endpoint = next(ep for ep in entry.endpoints if ep.path == "/deprecated")
     assert deprecated_endpoint.status == EndpointStatus.DEPRECATED

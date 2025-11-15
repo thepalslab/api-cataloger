@@ -1,4 +1,5 @@
 """Output generators for the catalog."""
+
 from jinja2 import Template
 from typing import List
 from .models import APICatalog
@@ -6,7 +7,7 @@ from .models import APICatalog
 
 class HTMLGenerator:
     """Generate HTML output for the catalog."""
-    
+
     TEMPLATE = """
 <!DOCTYPE html>
 <html lang="en">
@@ -296,21 +297,22 @@ class HTMLGenerator:
 </body>
 </html>
     """
-    
+
     def generate(self, catalog: APICatalog) -> str:
         """Generate HTML from catalog."""
         # Calculate statistics
         total_endpoints = sum(len(entry.endpoints) for entry in catalog.entries)
         active_endpoints = sum(
-            1 for entry in catalog.entries 
-            for ep in entry.endpoints 
-            if ep.status.value == 'active'
+            1
+            for entry in catalog.entries
+            for ep in entry.endpoints
+            if ep.status.value == "active"
         )
-        
+
         template = Template(self.TEMPLATE)
         return template.render(
             catalog=catalog.to_dict(),
             total_apis=len(catalog.entries),
             total_endpoints=total_endpoints,
-            active_endpoints=active_endpoints
+            active_endpoints=active_endpoints,
         )

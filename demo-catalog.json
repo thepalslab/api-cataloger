@@ -1,0 +1,422 @@
+{
+  "generated_at": "2025-11-15T16:50:49.557122",
+  "entries": [
+    {
+      "id": "d1ef65f05bad",
+      "metadata": {
+        "team_owner": "Platform Team",
+        "last_updated": "2025-11-15T16:46:00.058627",
+        "version": null,
+        "title": "API from product_controller.py",
+        "description": "Product API Controller\nManages product catalog and inventory",
+        "source_file": "examples/controllers/product_controller.py",
+        "base_url": null
+      },
+      "endpoints": [
+        {
+          "path": "/api/products",
+          "method": "GET",
+          "description": null,
+          "summary": null,
+          "parameters": [],
+          "responses": {},
+          "tags": [],
+          "status": "active"
+        },
+        {
+          "path": "/api/products",
+          "method": "POST",
+          "description": null,
+          "summary": null,
+          "parameters": [],
+          "responses": {},
+          "tags": [],
+          "status": "active"
+        },
+        {
+          "path": "/api/products/<product_id>",
+          "method": "GET",
+          "description": null,
+          "summary": null,
+          "parameters": [],
+          "responses": {},
+          "tags": [],
+          "status": "active"
+        },
+        {
+          "path": "/api/products/<product_id>",
+          "method": "PUT",
+          "description": null,
+          "summary": null,
+          "parameters": [],
+          "responses": {},
+          "tags": [],
+          "status": "active"
+        },
+        {
+          "path": "/api/products/<product_id>",
+          "method": "DELETE",
+          "description": null,
+          "summary": null,
+          "parameters": [],
+          "responses": {},
+          "tags": [],
+          "status": "active"
+        },
+        {
+          "path": "/api/products/<product_id>/inventory",
+          "method": "GET",
+          "description": null,
+          "summary": null,
+          "parameters": [],
+          "responses": {},
+          "tags": [],
+          "status": "active"
+        }
+      ]
+    },
+    {
+      "id": "ec506932d6d1",
+      "metadata": {
+        "team_owner": "Platform Team",
+        "last_updated": "2025-11-15T16:46:00.058627",
+        "version": null,
+        "title": "API from user_controller.js",
+        "description": "* User Controller\n * Handles all user-related HTTP requests",
+        "source_file": "examples/controllers/user_controller.js",
+        "base_url": null
+      },
+      "endpoints": [
+        {
+          "path": "/api/users",
+          "method": "GET",
+          "description": null,
+          "summary": null,
+          "parameters": [],
+          "responses": {},
+          "tags": [],
+          "status": "active"
+        },
+        {
+          "path": "/api/users",
+          "method": "POST",
+          "description": null,
+          "summary": null,
+          "parameters": [],
+          "responses": {},
+          "tags": [],
+          "status": "active"
+        },
+        {
+          "path": "/api/users/:id",
+          "method": "GET",
+          "description": null,
+          "summary": null,
+          "parameters": [],
+          "responses": {},
+          "tags": [],
+          "status": "active"
+        },
+        {
+          "path": "/api/users/:id",
+          "method": "PUT",
+          "description": null,
+          "summary": null,
+          "parameters": [],
+          "responses": {},
+          "tags": [],
+          "status": "active"
+        },
+        {
+          "path": "/api/users/:id",
+          "method": "DELETE",
+          "description": null,
+          "summary": null,
+          "parameters": [],
+          "responses": {},
+          "tags": [],
+          "status": "active"
+        },
+        {
+          "path": "/api/users/:id/posts",
+          "method": "GET",
+          "description": null,
+          "summary": null,
+          "parameters": [],
+          "responses": {},
+          "tags": [],
+          "status": "active"
+        }
+      ]
+    },
+    {
+      "id": "36a7d302035e",
+      "metadata": {
+        "team_owner": "Platform Team",
+        "last_updated": "2025-11-15T16:46:00.058627",
+        "version": "1.0.0",
+        "title": "User Management API",
+        "description": "API for managing users in the system",
+        "source_file": "examples/openapi/user-api.yaml",
+        "base_url": "https://api.example.com/v1"
+      },
+      "endpoints": [
+        {
+          "path": "/users",
+          "method": "GET",
+          "description": "Retrieve a paginated list of all users",
+          "summary": "List all users",
+          "parameters": [
+            {
+              "name": "page",
+              "in": "query",
+              "schema": {
+                "type": "integer",
+                "default": 1
+              }
+            },
+            {
+              "name": "limit",
+              "in": "query",
+              "schema": {
+                "type": "integer",
+                "default": 10
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Successful response",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "users": {
+                        "type": "array"
+                      },
+                      "total": {
+                        "type": "integer"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "tags": [
+            "users"
+          ],
+          "status": "active"
+        },
+        {
+          "path": "/users",
+          "method": "POST",
+          "description": "Create a new user in the system",
+          "summary": "Create a new user",
+          "parameters": [],
+          "responses": {
+            "201": {
+              "description": "User created successfully"
+            },
+            "400": {
+              "description": "Invalid input"
+            }
+          },
+          "tags": [
+            "users"
+          ],
+          "status": "active"
+        },
+        {
+          "path": "/users/{userId}",
+          "method": "GET",
+          "description": "Retrieve a specific user by their ID",
+          "summary": "Get user by ID",
+          "parameters": [
+            {
+              "name": "userId",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "User found"
+            },
+            "404": {
+              "description": "User not found"
+            }
+          },
+          "tags": [
+            "users"
+          ],
+          "status": "active"
+        },
+        {
+          "path": "/users/{userId}",
+          "method": "PUT",
+          "description": "Update an existing user's information",
+          "summary": "Update user",
+          "parameters": [
+            {
+              "name": "userId",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "User updated"
+            },
+            "404": {
+              "description": "User not found"
+            }
+          },
+          "tags": [
+            "users"
+          ],
+          "status": "active"
+        },
+        {
+          "path": "/users/{userId}",
+          "method": "DELETE",
+          "description": "Delete a user from the system",
+          "summary": "Delete user",
+          "parameters": [
+            {
+              "name": "userId",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "responses": {
+            "204": {
+              "description": "User deleted"
+            },
+            "404": {
+              "description": "User not found"
+            }
+          },
+          "tags": [
+            "users",
+            "deprecated"
+          ],
+          "status": "deprecated"
+        },
+        {
+          "path": "/users/{userId}/profile",
+          "method": "GET",
+          "description": "Retrieve detailed profile information for a user",
+          "summary": "Get user profile",
+          "parameters": [
+            {
+              "name": "userId",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Profile retrieved"
+            },
+            "404": {
+              "description": "User not found"
+            }
+          },
+          "tags": [
+            "users",
+            "profile"
+          ],
+          "status": "active"
+        }
+      ]
+    },
+    {
+      "id": "d56ec9bfc6b9",
+      "metadata": {
+        "team_owner": "Platform Team",
+        "last_updated": "2025-11-15T16:46:00.058627",
+        "version": null,
+        "title": "API from order_api.py",
+        "description": "Order Management API\nHandles order processing and tracking",
+        "source_file": "examples/annotations/order_api.py",
+        "base_url": null
+      },
+      "endpoints": [
+        {
+          "path": "/",
+          "method": "GET",
+          "description": null,
+          "summary": null,
+          "parameters": [],
+          "responses": {},
+          "tags": [],
+          "status": "active"
+        },
+        {
+          "path": "/",
+          "method": "POST",
+          "description": null,
+          "summary": null,
+          "parameters": [],
+          "responses": {},
+          "tags": [],
+          "status": "active"
+        },
+        {
+          "path": "/{order_id}",
+          "method": "GET",
+          "description": null,
+          "summary": null,
+          "parameters": [],
+          "responses": {},
+          "tags": [],
+          "status": "active"
+        },
+        {
+          "path": "/{order_id}",
+          "method": "PATCH",
+          "description": null,
+          "summary": null,
+          "parameters": [],
+          "responses": {},
+          "tags": [],
+          "status": "active"
+        },
+        {
+          "path": "/{order_id}",
+          "method": "DELETE",
+          "description": null,
+          "summary": null,
+          "parameters": [],
+          "responses": {},
+          "tags": [],
+          "status": "active"
+        },
+        {
+          "path": "/{order_id}/status",
+          "method": "GET",
+          "description": null,
+          "summary": null,
+          "parameters": [],
+          "responses": {},
+          "tags": [],
+          "status": "active"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,679 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Catalog</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f5f5f5;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            background: #2c3e50;
+            color: white;
+            padding: 30px 0;
+            margin-bottom: 30px;
+        }
+        
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        
+        .search-box {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .search-box input {
+            width: 100%;
+            padding: 12px;
+            font-size: 16px;
+            border: 2px solid #ddd;
+            border-radius: 4px;
+        }
+        
+        .search-box input:focus {
+            outline: none;
+            border-color: #3498db;
+        }
+        
+        .api-entry {
+            background: white;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .api-header {
+            background: #34495e;
+            color: white;
+            padding: 20px;
+        }
+        
+        .api-title {
+            font-size: 1.5em;
+            margin-bottom: 5px;
+        }
+        
+        .api-meta {
+            color: #bdc3c7;
+            font-size: 0.9em;
+        }
+        
+        .api-meta span {
+            margin-right: 15px;
+        }
+        
+        .endpoints {
+            padding: 20px;
+        }
+        
+        .endpoint {
+            padding: 15px;
+            border-left: 4px solid #3498db;
+            margin-bottom: 15px;
+            background: #f8f9fa;
+            border-radius: 4px;
+        }
+        
+        .endpoint-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        
+        .method {
+            padding: 4px 12px;
+            border-radius: 4px;
+            font-weight: bold;
+            font-size: 0.85em;
+            margin-right: 10px;
+            color: white;
+        }
+        
+        .method.GET { background: #27ae60; }
+        .method.POST { background: #3498db; }
+        .method.PUT { background: #f39c12; }
+        .method.DELETE { background: #e74c3c; }
+        .method.PATCH { background: #9b59b6; }
+        
+        .path {
+            font-family: 'Courier New', monospace;
+            font-size: 1.1em;
+            flex: 1;
+        }
+        
+        .status {
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 0.8em;
+            font-weight: bold;
+        }
+        
+        .status.active { background: #d4edda; color: #155724; }
+        .status.deprecated { background: #f8d7da; color: #721c24; }
+        .status.beta { background: #fff3cd; color: #856404; }
+        .status.internal { background: #d1ecf1; color: #0c5460; }
+        
+        .description {
+            color: #666;
+            margin-top: 5px;
+        }
+        
+        .tags {
+            margin-top: 10px;
+        }
+        
+        .tag {
+            display: inline-block;
+            background: #e9ecef;
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-size: 0.85em;
+            margin-right: 5px;
+        }
+        
+        .stats {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+        
+        .stat-item {
+            text-align: center;
+        }
+        
+        .stat-value {
+            font-size: 2em;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+        
+        .stat-label {
+            color: #7f8c8d;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>🔍 API Catalog</h1>
+            <p>Generated on 2025-11-15T16:50:49.940617</p>
+        </div>
+    </header>
+    
+    <div class="container">
+        <div class="search-box">
+            <input type="text" id="searchInput" placeholder="🔎 Search APIs by path, description, or tags..." onkeyup="filterAPIs()">
+        </div>
+        
+        <div class="stats">
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-value">4</div>
+                    <div class="stat-label">API Sources</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">24</div>
+                    <div class="stat-label">Total Endpoints</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">23</div>
+                    <div class="stat-label">Active Endpoints</div>
+                </div>
+            </div>
+        </div>
+        
+        <div id="apiList">
+            
+            <div class="api-entry" data-api="d1ef65f05bad">
+                <div class="api-header">
+                    <div class="api-title">API from product_controller.py</div>
+                    <div class="api-meta">
+                        
+                        <span>👥 Platform Team</span>
+                        
+                        
+                        
+                        <span>🕐 Updated: 2025-11-15T16:46:00.058627</span>
+                        
+                        <span>📁 examples/controllers/product_controller.py</span>
+                    </div>
+                </div>
+                
+                <div class="endpoints">
+                    
+                    <div class="endpoint" data-endpoint="/api/products GET">
+                        <div class="endpoint-header">
+                            <span class="method GET">GET</span>
+                            <span class="path">/api/products</span>
+                            <span class="status active">active</span>
+                        </div>
+                        
+                        
+                        
+                        
+                    </div>
+                    
+                    <div class="endpoint" data-endpoint="/api/products POST">
+                        <div class="endpoint-header">
+                            <span class="method POST">POST</span>
+                            <span class="path">/api/products</span>
+                            <span class="status active">active</span>
+                        </div>
+                        
+                        
+                        
+                        
+                    </div>
+                    
+                    <div class="endpoint" data-endpoint="/api/products/<product_id> GET">
+                        <div class="endpoint-header">
+                            <span class="method GET">GET</span>
+                            <span class="path">/api/products/<product_id></span>
+                            <span class="status active">active</span>
+                        </div>
+                        
+                        
+                        
+                        
+                    </div>
+                    
+                    <div class="endpoint" data-endpoint="/api/products/<product_id> PUT">
+                        <div class="endpoint-header">
+                            <span class="method PUT">PUT</span>
+                            <span class="path">/api/products/<product_id></span>
+                            <span class="status active">active</span>
+                        </div>
+                        
+                        
+                        
+                        
+                    </div>
+                    
+                    <div class="endpoint" data-endpoint="/api/products/<product_id> DELETE">
+                        <div class="endpoint-header">
+                            <span class="method DELETE">DELETE</span>
+                            <span class="path">/api/products/<product_id></span>
+                            <span class="status active">active</span>
+                        </div>
+                        
+                        
+                        
+                        
+                    </div>
+                    
+                    <div class="endpoint" data-endpoint="/api/products/<product_id>/inventory GET">
+                        <div class="endpoint-header">
+                            <span class="method GET">GET</span>
+                            <span class="path">/api/products/<product_id>/inventory</span>
+                            <span class="status active">active</span>
+                        </div>
+                        
+                        
+                        
+                        
+                    </div>
+                    
+                </div>
+            </div>
+            
+            <div class="api-entry" data-api="ec506932d6d1">
+                <div class="api-header">
+                    <div class="api-title">API from user_controller.js</div>
+                    <div class="api-meta">
+                        
+                        <span>👥 Platform Team</span>
+                        
+                        
+                        
+                        <span>🕐 Updated: 2025-11-15T16:46:00.058627</span>
+                        
+                        <span>📁 examples/controllers/user_controller.js</span>
+                    </div>
+                </div>
+                
+                <div class="endpoints">
+                    
+                    <div class="endpoint" data-endpoint="/api/users GET">
+                        <div class="endpoint-header">
+                            <span class="method GET">GET</span>
+                            <span class="path">/api/users</span>
+                            <span class="status active">active</span>
+                        </div>
+                        
+                        
+                        
+                        
+                    </div>
+                    
+                    <div class="endpoint" data-endpoint="/api/users POST">
+                        <div class="endpoint-header">
+                            <span class="method POST">POST</span>
+                            <span class="path">/api/users</span>
+                            <span class="status active">active</span>
+                        </div>
+                        
+                        
+                        
+                        
+                    </div>
+                    
+                    <div class="endpoint" data-endpoint="/api/users/:id GET">
+                        <div class="endpoint-header">
+                            <span class="method GET">GET</span>
+                            <span class="path">/api/users/:id</span>
+                            <span class="status active">active</span>
+                        </div>
+                        
+                        
+                        
+                        
+                    </div>
+                    
+                    <div class="endpoint" data-endpoint="/api/users/:id PUT">
+                        <div class="endpoint-header">
+                            <span class="method PUT">PUT</span>
+                            <span class="path">/api/users/:id</span>
+                            <span class="status active">active</span>
+                        </div>
+                        
+                        
+                        
+                        
+                    </div>
+                    
+                    <div class="endpoint" data-endpoint="/api/users/:id DELETE">
+                        <div class="endpoint-header">
+                            <span class="method DELETE">DELETE</span>
+                            <span class="path">/api/users/:id</span>
+                            <span class="status active">active</span>
+                        </div>
+                        
+                        
+                        
+                        
+                    </div>
+                    
+                    <div class="endpoint" data-endpoint="/api/users/:id/posts GET">
+                        <div class="endpoint-header">
+                            <span class="method GET">GET</span>
+                            <span class="path">/api/users/:id/posts</span>
+                            <span class="status active">active</span>
+                        </div>
+                        
+                        
+                        
+                        
+                    </div>
+                    
+                </div>
+            </div>
+            
+            <div class="api-entry" data-api="36a7d302035e">
+                <div class="api-header">
+                    <div class="api-title">User Management API</div>
+                    <div class="api-meta">
+                        
+                        <span>👥 Platform Team</span>
+                        
+                        
+                        <span>📌 v1.0.0</span>
+                        
+                        
+                        <span>🕐 Updated: 2025-11-15T16:46:00.058627</span>
+                        
+                        <span>📁 examples/openapi/user-api.yaml</span>
+                    </div>
+                </div>
+                
+                <div class="endpoints">
+                    
+                    <div class="endpoint" data-endpoint="/users GET">
+                        <div class="endpoint-header">
+                            <span class="method GET">GET</span>
+                            <span class="path">/users</span>
+                            <span class="status active">active</span>
+                        </div>
+                        
+                        
+                        <div class="description">
+                            List all users
+                        </div>
+                        
+                        
+                        
+                        <div class="tags">
+                            
+                            <span class="tag">users</span>
+                            
+                        </div>
+                        
+                    </div>
+                    
+                    <div class="endpoint" data-endpoint="/users POST">
+                        <div class="endpoint-header">
+                            <span class="method POST">POST</span>
+                            <span class="path">/users</span>
+                            <span class="status active">active</span>
+                        </div>
+                        
+                        
+                        <div class="description">
+                            Create a new user
+                        </div>
+                        
+                        
+                        
+                        <div class="tags">
+                            
+                            <span class="tag">users</span>
+                            
+                        </div>
+                        
+                    </div>
+                    
+                    <div class="endpoint" data-endpoint="/users/{userId} GET">
+                        <div class="endpoint-header">
+                            <span class="method GET">GET</span>
+                            <span class="path">/users/{userId}</span>
+                            <span class="status active">active</span>
+                        </div>
+                        
+                        
+                        <div class="description">
+                            Get user by ID
+                        </div>
+                        
+                        
+                        
+                        <div class="tags">
+                            
+                            <span class="tag">users</span>
+                            
+                        </div>
+                        
+                    </div>
+                    
+                    <div class="endpoint" data-endpoint="/users/{userId} PUT">
+                        <div class="endpoint-header">
+                            <span class="method PUT">PUT</span>
+                            <span class="path">/users/{userId}</span>
+                            <span class="status active">active</span>
+                        </div>
+                        
+                        
+                        <div class="description">
+                            Update user
+                        </div>
+                        
+                        
+                        
+                        <div class="tags">
+                            
+                            <span class="tag">users</span>
+                            
+                        </div>
+                        
+                    </div>
+                    
+                    <div class="endpoint" data-endpoint="/users/{userId} DELETE">
+                        <div class="endpoint-header">
+                            <span class="method DELETE">DELETE</span>
+                            <span class="path">/users/{userId}</span>
+                            <span class="status deprecated">deprecated</span>
+                        </div>
+                        
+                        
+                        <div class="description">
+                            Delete user
+                        </div>
+                        
+                        
+                        
+                        <div class="tags">
+                            
+                            <span class="tag">users</span>
+                            
+                            <span class="tag">deprecated</span>
+                            
+                        </div>
+                        
+                    </div>
+                    
+                    <div class="endpoint" data-endpoint="/users/{userId}/profile GET">
+                        <div class="endpoint-header">
+                            <span class="method GET">GET</span>
+                            <span class="path">/users/{userId}/profile</span>
+                            <span class="status active">active</span>
+                        </div>
+                        
+                        
+                        <div class="description">
+                            Get user profile
+                        </div>
+                        
+                        
+                        
+                        <div class="tags">
+                            
+                            <span class="tag">users</span>
+                            
+                            <span class="tag">profile</span>
+                            
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+            
+            <div class="api-entry" data-api="d56ec9bfc6b9">
+                <div class="api-header">
+                    <div class="api-title">API from order_api.py</div>
+                    <div class="api-meta">
+                        
+                        <span>👥 Platform Team</span>
+                        
+                        
+                        
+                        <span>🕐 Updated: 2025-11-15T16:46:00.058627</span>
+                        
+                        <span>📁 examples/annotations/order_api.py</span>
+                    </div>
+                </div>
+                
+                <div class="endpoints">
+                    
+                    <div class="endpoint" data-endpoint="/ GET">
+                        <div class="endpoint-header">
+                            <span class="method GET">GET</span>
+                            <span class="path">/</span>
+                            <span class="status active">active</span>
+                        </div>
+                        
+                        
+                        
+                        
+                    </div>
+                    
+                    <div class="endpoint" data-endpoint="/ POST">
+                        <div class="endpoint-header">
+                            <span class="method POST">POST</span>
+                            <span class="path">/</span>
+                            <span class="status active">active</span>
+                        </div>
+                        
+                        
+                        
+                        
+                    </div>
+                    
+                    <div class="endpoint" data-endpoint="/{order_id} GET">
+                        <div class="endpoint-header">
+                            <span class="method GET">GET</span>
+                            <span class="path">/{order_id}</span>
+                            <span class="status active">active</span>
+                        </div>
+                        
+                        
+                        
+                        
+                    </div>
+                    
+                    <div class="endpoint" data-endpoint="/{order_id} PATCH">
+                        <div class="endpoint-header">
+                            <span class="method PATCH">PATCH</span>
+                            <span class="path">/{order_id}</span>
+                            <span class="status active">active</span>
+                        </div>
+                        
+                        
+                        
+                        
+                    </div>
+                    
+                    <div class="endpoint" data-endpoint="/{order_id} DELETE">
+                        <div class="endpoint-header">
+                            <span class="method DELETE">DELETE</span>
+                            <span class="path">/{order_id}</span>
+                            <span class="status active">active</span>
+                        </div>
+                        
+                        
+                        
+                        
+                    </div>
+                    
+                    <div class="endpoint" data-endpoint="/{order_id}/status GET">
+                        <div class="endpoint-header">
+                            <span class="method GET">GET</span>
+                            <span class="path">/{order_id}/status</span>
+                            <span class="status active">active</span>
+                        </div>
+                        
+                        
+                        
+                        
+                    </div>
+                    
+                </div>
+            </div>
+            
+        </div>
+    </div>
+    
+    <script>
+        function filterAPIs() {
+            const searchValue = document.getElementById('searchInput').value.toLowerCase();
+            const apiEntries = document.querySelectorAll('.api-entry');
+            
+            apiEntries.forEach(entry => {
+                const endpoints = entry.querySelectorAll('.endpoint');
+                let hasMatch = false;
+                
+                endpoints.forEach(endpoint => {
+                    const text = endpoint.textContent.toLowerCase();
+                    const matches = text.includes(searchValue);
+                    endpoint.style.display = matches ? 'block' : 'none';
+                    if (matches) hasMatch = true;
+                });
+                
+                entry.style.display = hasMatch ? 'block' : 'none';
+            });
+        }
+    </script>
+</body>
+</html>
+    

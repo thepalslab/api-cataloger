@@ -1,4 +1,5 @@
 """Tests for controller parser."""
+
 import pytest
 from pathlib import Path
 from api_cataloger.parsers.controller_parser import ControllerParser
@@ -67,13 +68,13 @@ def test_cannot_parse_non_controller(controller_parser, tmp_path):
 def test_parse_express_controller(controller_parser, express_controller):
     """Test parsing Express controller."""
     entry = controller_parser.parse(express_controller)
-    
+
     assert entry is not None
     assert len(entry.endpoints) == 2
-    
+
     get_endpoint = next(ep for ep in entry.endpoints if ep.method == "GET")
     assert get_endpoint.path == "/api/users"
-    
+
     post_endpoint = next(ep for ep in entry.endpoints if ep.method == "POST")
     assert post_endpoint.path == "/api/users"
 
@@ -81,10 +82,10 @@ def test_parse_express_controller(controller_parser, express_controller):
 def test_parse_flask_controller(controller_parser, flask_controller):
     """Test parsing Flask controller."""
     entry = controller_parser.parse(flask_controller)
-    
+
     assert entry is not None
     assert len(entry.endpoints) == 2
-    
+
     # Check that both endpoints were found
     methods = [ep.method for ep in entry.endpoints]
     assert "GET" in methods
